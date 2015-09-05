@@ -1,3 +1,6 @@
+/api/.idea
+/app/.idea
+
 /api/.bundle
 
 # Ignore the default SQLite database.
@@ -8,3 +11,11 @@
 /api/log/*
 !/api/log/.keep
 /api/tmp
+
+#client
+/app/node_modules
+/app/dist/
+/app/*.iml
+/app/webpack-stats.json
+/app/npm-debug.log
+
