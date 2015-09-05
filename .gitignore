@@ -1,0 +1,10 @@
+/api/.bundle
+
+# Ignore the default SQLite database.
+/api/db/*.sqlite3
+/api/db/*.sqlite3-journal
+
+# Ignore all logfiles and tempfiles.
+/api/log/*
+!/api/log/.keep
+/api/tmp
