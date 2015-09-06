@@ -5,8 +5,11 @@ import path from 'path'
 
 import Html from './Html.react'
 import React from 'react'
-
-//import App from 'components/App'
+import routes from 'router'
+import {Router} from 'react-router'
+import Location from 'react-router/lib/Location'
+import initStore from 'redux/store'
+import {Provider} from 'react-redux'
 
 const proxy = httpProxy.createProxyServer({
     target: 'http://localhost:' + config.get('apiPort')
@@ -38,11 +41,19 @@ app.use((req, res) => {
 
     if (__DISABLE_SSR__) {
         html += React.renderToString(<Html component={<div />} webpackStats={webpackStats}/>)
+        return res.send(html)
     } else {
-        //html += React.renderToString(<Html component={<App />} webpackStats={webpackStats}/>)
+        const location = new Location(req.path, req.query)
+        Router.run(routes, location, (error, initialState, transition)  => {
+            const component = (
+                <Provider store = {initStore()} >
+                    {() => <Router {...initialState} children={routes}/> }
+                </Provider>
+            )
+            html += React.renderToString(<Html component={component} webpackStats={webpackStats}/>)
+            res.send(html)
+        })
     }
-
-    res.send(html)
 })
 
 app.listen(config.get('port'), (err) => {
