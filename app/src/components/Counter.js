@@ -8,7 +8,7 @@ class Counter extends Component {
         return (
             <div>
                 <h3>count is: {this.props.count}</h3>
-                <a href="#" onClick={::this.increment}>increment me</a>
+                <span onClick={::this.increment}>increment me</span>
             </div>
         )
     }
