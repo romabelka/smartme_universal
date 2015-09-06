@@ -7,8 +7,22 @@ import {Provider} from 'react-redux'
 
 const initialState = window.__initialState || {}
 const history = new BrowserHistory
-React.render((
-    <Provider store = {initStore()} >
-        {() => <Router {...initialState} history = {history} children={routes}/> }
+const store = initStore(initialState)
+const component = (
+    <Provider store = {store} >
+        {() => <Router {...initialState} history = {history} children={routes}/>}
     </Provider>
-), document.getElementById('content'));
+)
+
+if (__DEVTOOLS__) {
+    const { DevTools, DebugPanel, LogMonitor } = require('redux-devtools/lib/react');
+    console.info("You're working on debugg mode");
+    React.render((
+        <div>
+            {component}
+            <DebugPanel top right bottom key="debugPanel">
+                <DevTools store={store} monitor={LogMonitor}/>
+            </DebugPanel>
+        </div>
+    ), document.getElementById('content'))
+} else React.render(component, document.getElementById('content'));
