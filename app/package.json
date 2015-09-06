@@ -57,7 +57,7 @@
     "piping": "^0.2.0",
     "react": "^0.13.3",
     "react-redux": "^2.1.0",
-    "react-router": "^0.13.3",
+    "react-router": "1.0.0-beta3",
     "redux": "^2.0.0",
     "serve-static": "^1.10.0"
   }
