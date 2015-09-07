@@ -7,7 +7,6 @@ var host = 'localhost';
 var port = parseInt(process.env.PORT) + 1 || 3001;
 
 module.exports = {
-  devtool: 'eval-source-map',
   context: path.resolve(__dirname, '..'),
   entry: {
     'main': [
@@ -39,6 +38,9 @@ module.exports = {
     extensions: ['', '.json', '.js']
   },
   plugins: [
+    new webpack.ProvidePlugin({
+      'fetch': 'imports?this=>global!exports?global.fetch!whatwg-fetch'
+    }),
     // hot reload
     new webpack.HotModuleReplacementPlugin(),
     new webpack.WatchIgnorePlugin([/\.json$/]),

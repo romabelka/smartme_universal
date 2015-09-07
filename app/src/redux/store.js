@@ -1,4 +1,5 @@
 import {applyMiddleware, createStore, compose} from 'redux'
+import middlewares from 'redux/middlewares'
 
 export default (initialState) => {
     const reducer = require('../reducers')
@@ -7,10 +8,11 @@ export default (initialState) => {
     if (__DEVELOPMENT__ && __CLIENT__ && __DEVTOOLS__) {
         const { devTools, persistState } = require('redux-devtools');
         cutomCreateStore = compose(
+            applyMiddleware.apply(null, middlewares),
             devTools(),
             persistState(window.location.href.match(/[?&]debug_session=([^&]+)\b/))
         )(createStore);
-    } else cutomCreateStore = createStore
+    } else cutomCreateStore = applyMiddleware.apply(null, middlewares)(createStore)
 
     const store = cutomCreateStore(reducer, initialState)
 

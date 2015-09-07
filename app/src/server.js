@@ -12,7 +12,7 @@ import initStore from 'redux/store'
 import {Provider} from 'react-redux'
 
 const proxy = httpProxy.createProxyServer({
-    target: 'http://localhost:' + config.get('apiPort')
+    target: config.get('apiURL')
 })
 
 const app = new Express();
