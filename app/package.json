@@ -59,6 +59,7 @@
     "nconf": "^0.7.2",
     "node-fetch": "^1.3.2",
     "piping": "^0.2.0",
+    "query-string": "^2.4.1",
     "react": "^0.13.3",
     "react-redux": "^2.1.0",
     "react-router": "1.0.0-beta3",

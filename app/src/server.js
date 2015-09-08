@@ -5,11 +5,10 @@ import path from 'path'
 
 import Html from './Html.react'
 import React from 'react'
-import routes from 'router'
-import {Router} from 'react-router'
+
+import router from 'router'
 import Location from 'react-router/lib/Location'
 import initStore from 'redux/store'
-import {Provider} from 'react-redux'
 
 const proxy = httpProxy.createProxyServer({
     target: config.get('apiURL')
@@ -44,12 +43,7 @@ app.use((req, res) => {
         return res.send(html)
     } else {
         const location = new Location(req.path, req.query)
-        Router.run(routes, location, (error, initialState, transition)  => {
-            const component = (
-                <Provider store = {initStore()} >
-                    {() => <Router {...initialState} children={routes}/> }
-                </Provider>
-            )
+        router(initStore(), location).then((component) => {
             html += React.renderToString(<Html component={component} webpackStats={webpackStats}/>)
             res.send(html)
         })
