@@ -17,9 +17,6 @@ class IndexPage extends Component {
         ev.preventDefault()
         this.props.loadArticles()
     }
-    static fetchData() {
-        console.log('---', 1);
-    }
 }
 
 @connect((state) => ({
@@ -35,9 +32,7 @@ class IndexPageWrapper {
             </IndexPage>
         )
     }
-    static fetchData(nextState, transition) {
-        console.log('---', 123);
-        //debugger
-        //return this.props.dispatch(articleActions.loadArticles)
+    static fetchData(store) {
+        return articleActions.loadArticles()
     }
 }
