@@ -43,8 +43,9 @@ app.use((req, res) => {
         return res.send(html)
     } else {
         const location = new Location(req.path, req.query)
-        router(initStore(), location).then((component) => {
-            html += React.renderToString(<Html component={component} webpackStats={webpackStats}/>)
+        const store = initStore()
+        router(store, location).then((component) => {
+            html += React.renderToString(<Html component={component} webpackStats={webpackStats} store={store}/>)
             res.send(html)
         })
     }

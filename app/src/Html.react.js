@@ -21,6 +21,7 @@ export default class Html extends Component {
             </head>
             <body>
             <div id="content" dangerouslySetInnerHTML={{__html: React.renderToString(component)}}/>
+            <script dangerouslySetInnerHTML={{__html: `window.__initialState=${JSON.stringify(store.getState())}`}} />
             <script src={webpackStats.script[0]}/>
             </body>
             </html>

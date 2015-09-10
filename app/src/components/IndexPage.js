@@ -5,11 +5,19 @@ import {bindActionCreators} from 'redux'
 
 class IndexPage extends Component {
     render() {
+        const articles = this.props.articles.articles.map((article) => (
+            <li key={article.id}>
+                <a>{article.title}</a>
+            </li>
+        ))
         return (
             <div>
                 <h3>Main Page</h3>
                 <p>Lorem Ipsum</p>
                 <a onClick={::this.loadArticles}>load articles</a>
+                <ul>
+                    {articles}
+                </ul>
             </div>
         )
     }
@@ -33,6 +41,6 @@ class IndexPageWrapper {
         )
     }
     static fetchData(store) {
-        return articleActions.loadArticles()
+        if (!store.getState().articles.loaded) return articleActions.loadArticles()
     }
 }

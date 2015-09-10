@@ -3,7 +3,8 @@ import config from 'config'
 
 export default (dispatch, getState) => next => action => {
     if (!action.fetch) return next(action)
-    const {fetch: {promise}, types, ...rest} = action
+    const {fetch, types, ...rest} = action
+    const {promise} = fetch
     wrappFetch(fetch)
     next({...rest, promise, types})
 }

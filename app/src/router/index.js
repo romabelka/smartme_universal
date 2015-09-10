@@ -5,7 +5,7 @@ import React from 'react'
 
 
 export default (store, location, history) => new Promise((resolve, reject) => {
-    Router.run(routes, location, __CLIENT__ ? [transitionHook(store)] : undefined, (error, initialState, transition)  => {
+    Router.run(routes, location, [transitionHook(store)], (error, initialState, transition)  => {
         const component = (
             <Provider store={store}>
                 {() => <Router {...initialState} children={routes} history={history}/> }
@@ -23,7 +23,8 @@ function transitionHook(store) {
             .filter(getFetchData)
             .map(getFetchData)
             .map((fetch) => {
-                const action = fetch()
+                const action = fetch(store)
+                if (!action) return null
                 store.dispatch(action)
                 return action.fetch.promise
             })
