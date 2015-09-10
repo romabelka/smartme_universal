@@ -6,6 +6,7 @@ import * as atriclesActions from 'actions/articles'
 class Article extends Component {
     render() {
         const {article} = this.props
+        if (!article) return <h2>Not found :(</h2>
         return (
             <section>
                 <h2>Article {article.title}</h2>
