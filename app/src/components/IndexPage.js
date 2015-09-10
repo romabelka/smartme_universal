@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import {Link} from 'react-router'
 import * as articleActions from 'actions/articles'
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
@@ -7,7 +8,7 @@ class IndexPage extends Component {
     render() {
         const articles = this.props.articles.articles.map((article) => (
             <li key={article.id}>
-                <a>{article.title}</a>
+                <Link to={`/articles/${article.id}`}>{article.title}</Link>
             </li>
         ))
         return (
@@ -18,6 +19,7 @@ class IndexPage extends Component {
                 <ul>
                     {articles}
                 </ul>
+                {this.props.children}
             </div>
         )
     }
