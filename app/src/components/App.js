@@ -1,7 +1,18 @@
-import React, {Component} from 'react'
+import React, {Component, PropTypes} from 'react'
 import {Link} from 'react-router'
+import {transitionHook} from 'router'
 
 export default class App extends Component {
+    static contextTypes = {
+        router: PropTypes.object.isRequired,
+        store: PropTypes.object.isRequired
+    };
+
+    componentWillMount() {
+        const {store, router} = this.context
+        this.transitionHook = transitionHook(store)
+        router.addTransitionHook(this.transitionHook)
+    }
     render() {
         return (
             <div>

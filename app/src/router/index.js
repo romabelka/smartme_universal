@@ -1,5 +1,5 @@
 import routes from './routes'
-import {Router} from 'react-router'
+import Router from 'react-router'
 import {Provider} from 'react-redux'
 import React from 'react'
 
@@ -15,9 +15,8 @@ export default (store, location, history) => new Promise((resolve, reject) => {
     })
 })
 
-function transitionHook(store) {
+export function transitionHook(store) {
     return (nextState, transition, callback) => {
-        const { params, location: { query } } = nextState;
         const fetches = nextState.branch
             .map((route) => route.component)
             .filter(getFetchData)
