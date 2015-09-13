@@ -1,5 +1,5 @@
 import dispatcher from '../dispatcher'
-import {CREATE_CONF, DELETE_CONF, CHANGE_CONF} from '../actions/types'
+import {CREATE_CONF, DELETE_CONF, CHANGE_CONF, CHANGE_EVENT} from '../actions/types'
 var EventEmitter = require('events').EventEmitter;
 var assign = require('object-assign');
 
@@ -7,6 +7,10 @@ let conferences = []
 var confStore = assign({}, EventEmitter.prototype, {
     add: function(info) {
         conferences.push(info)
+    },
+
+    getAll: function () {
+        return conferences
     },
 
     emitChange: function() {

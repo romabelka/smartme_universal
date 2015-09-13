@@ -2,10 +2,9 @@ import React, {Component} from 'react'
 import confStore from './stores/conferences'
 
 class App extends Component {
-    getInitialState() {
-        return {
-            conferences: confStore.getAll()
-        }
+    constructor(props) {
+        super(props);
+        this.state = {conferences: confStore.getAll()};
     }
     componentDidMount() {
         confStore.addChangeListener(this.__onChange)
@@ -14,6 +13,7 @@ class App extends Component {
         confStore.removeChangeListener(this.__onChange)
     }
     render() {
+        console.log('---', this.state);
         let confs = this.state.conferences.map((conf) => conf.title)
         return(
             <div>
