@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import confStore from 'stores/conferences'
+import confStore from './stores/conferences'
 
 class App extends Component {
     getInitialState() {
@@ -10,14 +10,16 @@ class App extends Component {
     componentDidMount() {
         confStore.addChangeListener(this.__onChange)
     }
+    componentWillUnmount() {
+        confStore.removeChangeListener(this.__onChange)
+    }
     render() {
-        let names = ['Roma', 'Igor', 'Alex'];
-        let buttons = names.map((name) => <Button key={name} name={name}/>)
+        let confs = this.state.conferences.map((conf) => conf.title)
         return(
-            <h1>
-                <a>Hello world</a>
-                {buttons}
-            </h1>
+            <div>
+                <h1>conferences</h1>
+                {confs}
+            </div>
         )
     }
 

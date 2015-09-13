@@ -1,5 +1,5 @@
-import dispatcher from 'js/dispatcher'
-import {CREATE_CONF, DELETE_CONF, CHANGE_CONF} from 'js/actions/types'
+import dispatcher from '../dispatcher'
+import {CREATE_CONF, DELETE_CONF, CHANGE_CONF} from '../actions/types'
 var EventEmitter = require('events').EventEmitter;
 var assign = require('object-assign');
 
