@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import confStore from './stores/conferences'
+import {addConf} from './actions/confAction'
 
 class App extends Component {
     constructor(props) {
@@ -7,10 +8,10 @@ class App extends Component {
         this.state = {conferences: confStore.getAll()};
     }
     componentDidMount() {
-        confStore.addChangeListener(this.__onChange)
+        confStore.addChangeListener(::this.__onChange)
     }
     componentWillUnmount() {
-        confStore.removeChangeListener(this.__onChange)
+        confStore.removeChangeListener(::this.__onChange)
     }
     render() {
         console.log('---', this.state);
@@ -19,8 +20,15 @@ class App extends Component {
             <div>
                 <h1>conferences</h1>
                 {confs}
+                <a href = "#" onClick= {this.addConf}>Add Dummy Conf</a>
             </div>
         )
+    }
+    addConf(ev) {
+        ev.preventDefault()
+        addConf({
+            title: 'Hello world'
+        })
     }
 
     __onChange() {
