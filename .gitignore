@@ -1,5 +1,7 @@
 /api/.idea
 /app/.idea
+/node_api/.idea
+/node_api/node_modules
 
 /api/.bundle
 
