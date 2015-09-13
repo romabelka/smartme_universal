@@ -1,18 +1,15 @@
 import React, {Component} from 'react'
-
-
-class Button extends Component {
-    render() {
-        return (
-            <div style = {{color: 'red'}} >
-                <span>I'm a button {this.props.name}</span>
-                <a href="#">click me</a>
-            </div>
-        )
-    }
-}
+import confStore from 'stores/conferences'
 
 class App extends Component {
+    getInitialState() {
+        return {
+            conferences: confStore.getAll()
+        }
+    }
+    componentDidMount() {
+        confStore.addChangeListener(this.__onChange)
+    }
     render() {
         let names = ['Roma', 'Igor', 'Alex'];
         let buttons = names.map((name) => <Button key={name} name={name}/>)
@@ -22,6 +19,12 @@ class App extends Component {
                 {buttons}
             </h1>
         )
+    }
+
+    __onChange() {
+        this.setState({
+            conferences: confStore.getAll()
+        })
     }
 }
 

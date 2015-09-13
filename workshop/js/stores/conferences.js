@@ -1,9 +1,13 @@
 import dispatcher from 'js/dispatcher'
+import {CREATE_CONF, DELETE_CONF, CHANGE_CONF} from 'js/actions/types'
 var EventEmitter = require('events').EventEmitter;
 var assign = require('object-assign');
 
+let conferences = []
 var confStore = assign({}, EventEmitter.prototype, {
-
+    add: function(info) {
+        conferences.push(info)
+    },
 
     emitChange: function() {
         this.emit(CHANGE_EVENT);
@@ -27,6 +31,10 @@ var confStore = assign({}, EventEmitter.prototype, {
 // Register callback to handle all updates
 dispatcher.register(function(action) {
     switch(action.actionType) {
+        case CREATE_CONF:
+            confStore.add(action.data)
+            confStore.emitChange()
+            break
     }
 });
 
