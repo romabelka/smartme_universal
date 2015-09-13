@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import confStore from './stores/conferences'
 import {addConf} from './actions/confAction'
+import ConfList from './components/ConfList'
 
 class App extends Component {
     constructor(props) {
@@ -14,12 +15,10 @@ class App extends Component {
         confStore.removeChangeListener(::this.__onChange)
     }
     render() {
-        console.log('---', this.state);
-        let confs = this.state.conferences.map((conf) => conf.title)
         return(
             <div>
                 <h1>conferences</h1>
-                {confs}
+                <ConfList conferences={this.state.conferences}/>
                 <a href = "#" onClick= {this.addConf}>Add Dummy Conf</a>
             </div>
         )
@@ -27,7 +26,7 @@ class App extends Component {
     addConf(ev) {
         ev.preventDefault()
         addConf({
-            title: 'Hello world'
+            title: 'Hello world' + Math.random()*1000
         })
     }
 
